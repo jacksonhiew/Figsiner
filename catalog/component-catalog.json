@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Button/Filled",
+    "componentKey": "REPLACE_WITH_FILLED_BUTTON_KEY",
+    "variants": {
+      "Size": ["Small", "Medium"],
+      "State": ["Enabled"]
+    }
+  },
+  {
+    "name": "Button/Outlined",
+    "componentKey": "REPLACE_WITH_OUTLINED_BUTTON_KEY",
+    "variants": {
+      "Size": ["Medium"],
+      "State": ["Enabled"]
+    }
+  },
+  {
+    "name": "Card/Elevated",
+    "componentKey": "REPLACE_WITH_CARD_KEY"
+  },
+  {
+    "name": "Text field/Outlined",
+    "componentKey": "REPLACE_WITH_TEXT_FIELD_KEY",
+    "variants": {
+      "State": ["Enabled", "Error"]
+    }
+  }
+]

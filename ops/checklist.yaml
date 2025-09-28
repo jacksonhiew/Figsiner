@@ -1,0 +1,38 @@
+phase: "P1"
+items:
+  - id: settings-verify
+    title: "Settings: Verify /models"
+    status: done
+  - id: schema-section
+    title: "Section schema"
+    status: done
+  - id: schema-patch
+    title: "Patch schema"
+    status: done
+  - id: prompt-generate
+    title: "Prompt: Generate Section"
+    status: done
+  - id: prompt-edit
+    title: "Prompt: Edit Section"
+    status: done
+  - id: renderer-primitives
+    title: "Renderer: primitives"
+    status: done
+  - id: renderer-components
+    title: "Renderer: component instances"
+    status: done
+  - id: tool-export-keys
+    title: "Dev tool: export Material component keys"
+    status: done
+  - id: dual-viewport
+    title: "Dual output (desktop+mobile)"
+    status: done
+  - id: qa-suite
+    title: "QA scenarios pass"
+    status: done
+  - id: errors
+    title: "Error handling & toasts"
+    status: done
+  - id: readme
+    title: "README"
+    status: done

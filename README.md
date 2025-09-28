@@ -112,6 +112,13 @@ See [docs/plan/phase1-section-engine.md](docs/plan/phase1-section-engine.md) for
 
 ---
 
+## 🚨 Error Handling
+- Invalid JSON from the model is surfaced in the UI with an inline error message (and a truncated snippet) so you can regenerate quickly.
+- Component import failures automatically fall back to primitive builders to keep the flow unblocked.
+- Editing without a stored section selection raises a toast and UI warning instead of silently failing.
+
+---
+
 ## 🔒 Security
 - API keys are stored in \`clientStorage\` and UI \`localStorage\` for dev use.  
 - For production release, integrate a backend token exchange and encrypt secrets.

@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figsiner.dev/schemas/section.patch.schema.json",
+  "title": "Figsiner Section Patch",
+  "type": "object",
+  "required": ["meta", "ops"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schema"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "section-patch-1.0"
+        }
+      }
+    },
+    "ops": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/patchOp"
+      }
+    }
+  },
+  "$defs": {
+    "sectionNode": {
+      "$ref": "section.schema.json#/$defs/sectionNode"
+    },
+    "layout": {
+      "$ref": "section.schema.json#/$defs/layout"
+    },
+    "padding": {
+      "$ref": "section.schema.json#/$defs/padding"
+    },
+    "evenSpacing": {
+      "$ref": "section.schema.json#/$defs/evenSpacing"
+    },
+    "componentRef": {
+      "$ref": "section.schema.json#/$defs/componentRef"
+    },
+    "patchOp": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["op", "changes"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "updateSection" },
+            "changes": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "padding": { "$ref": "#/$defs/padding" },
+                "itemSpacing": { "$ref": "#/$defs/evenSpacing" },
+                "layout": { "$ref": "#/$defs/layout" },
+                "background": { "$ref": "section.schema.json#/$defs/backgroundFill" },
+                "heading": { "type": "string" },
+                "subheading": { "type": "string" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "targetId", "content"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "replaceItemText" },
+            "targetId": { "$ref": "section.schema.json#/$defs/nodeId" },
+            "content": { "type": "string", "minLength": 1 },
+            "style": {
+              "type": "string",
+              "enum": ["h1", "h2", "h3", "body", "small"]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "targetId", "changes"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "updateItem" },
+            "targetId": { "$ref": "section.schema.json#/$defs/nodeId" },
+            "changes": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "layout": { "$ref": "#/$defs/layout" },
+                "button": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "label": { "type": "string" },
+                    "variant": {
+                      "type": "string",
+                      "enum": ["primary", "secondary", "tonal", "text"]
+                    },
+                    "width": {
+                      "type": "string",
+                      "enum": ["hug", "fill"]
+                    }
+                  }
+                },
+                "text": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "style": {
+                      "type": "string",
+                      "enum": ["h1", "h2", "h3", "body", "small"]
+                    },
+                    "maxWidth": {
+                      "type": "integer",
+                      "minimum": 120,
+                      "maximum": 1200
+                    }
+                  }
+                },
+                "useComponent": { "$ref": "#/$defs/componentRef" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "parentId", "position", "item"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "insertItem" },
+            "parentId": { "$ref": "section.schema.json#/$defs/nodeId" },
+            "position": {
+              "oneOf": [
+                { "type": "string", "enum": ["start", "end"] },
+                { "type": "integer", "minimum": 0 }
+              ]
+            },
+            "item": { "$ref": "#/$defs/sectionNode" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "targetId"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "removeItem" },
+            "targetId": { "$ref": "section.schema.json#/$defs/nodeId" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["op", "targetId"],
+          "additionalProperties": false,
+          "properties": {
+            "op": { "const": "reorderItem" },
+            "targetId": { "$ref": "section.schema.json#/$defs/nodeId" },
+            "beforeId": { "$ref": "section.schema.json#/$defs/nodeId" },
+            "afterId": { "$ref": "section.schema.json#/$defs/nodeId" }
+          }
+        }
+      ]
+    }
+  }
+}

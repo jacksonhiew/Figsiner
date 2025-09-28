@@ -1,0 +1,11 @@
+{
+  "name": "Figsiner Export Keys",
+  "id": "1217014231685127881",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "permissions": ["currentuser"],
+  "networkAccess": {
+    "allowedDomains": ["*"]
+  }
+}

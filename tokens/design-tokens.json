@@ -1,0 +1,70 @@
+{
+  "spacing": [8, 12, 16, 20, 24, 32, 40, 48],
+  "sectionPadding": [24, 32, 40],
+  "itemSpacing": [8, 12, 16, 20, 24],
+  "grid": {
+    "desktop": {
+      "columns": [3, 4, 5],
+      "gutter": 24,
+      "container": 1200,
+      "viewport": 1920
+    },
+    "mobile": {
+      "columns": [1, 2],
+      "gutter": 16,
+      "container": 360,
+      "viewport": 420
+    }
+  },
+  "radii": {
+    "sm": 4,
+    "md": 8,
+    "lg": 12,
+    "xl": 16
+  },
+  "typography": {
+    "h1": {
+      "fontFamily": "Inter",
+      "fontStyle": "Bold",
+      "fontWeight": 700,
+      "fontSize": 36,
+      "lineHeight": 44
+    },
+    "h2": {
+      "fontFamily": "Inter",
+      "fontStyle": "Semi Bold",
+      "fontWeight": 600,
+      "fontSize": 28,
+      "lineHeight": 34
+    },
+    "h3": {
+      "fontFamily": "Inter",
+      "fontStyle": "Semi Bold",
+      "fontWeight": 600,
+      "fontSize": 22,
+      "lineHeight": 28
+    },
+    "body": {
+      "fontFamily": "Inter",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 16,
+      "lineHeight": 24
+    },
+    "small": {
+      "fontFamily": "Inter",
+      "fontStyle": "Regular",
+      "fontWeight": 400,
+      "fontSize": 14,
+      "lineHeight": 20
+    }
+  },
+  "colors": {
+    "background": "#FFFFFF",
+    "surface": "#F5F7FA",
+    "surfaceAlt": "#ECEFF4",
+    "text": "#1A1C1E",
+    "textSubtle": "#3C4043",
+    "accent": "#6750A4"
+  }
+}
