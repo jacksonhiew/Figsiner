@@ -1,0 +1,427 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://figsiner.dev/schemas/section.schema.json",
+  "title": "Figsiner Section (multi viewport)",
+  "type": "object",
+  "required": ["meta", "variants"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schema"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "section-1.0-multi"
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/sectionVariant"
+      }
+    }
+  },
+  "$defs": {
+    "evenSpacing": {
+      "type": "integer",
+      "enum": [8, 12, 16, 20, 24]
+    },
+    "sectionVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["viewport", "section"],
+      "properties": {
+        "viewport": {
+          "type": "string",
+          "enum": ["desktop", "mobile"]
+        },
+        "section": {
+          "$ref": "#/$defs/section"
+        }
+      }
+    },
+    "padding": {
+      "type": "object",
+      "required": ["top", "right", "bottom", "left"],
+      "additionalProperties": false,
+      "properties": {
+        "top": {
+          "type": "integer",
+          "enum": [24, 32, 40]
+        },
+        "right": {
+          "type": "integer",
+          "enum": [24, 32, 40]
+        },
+        "bottom": {
+          "type": "integer",
+          "enum": [24, 32, 40]
+        },
+        "left": {
+          "type": "integer",
+          "enum": [24, 32, 40]
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"]
+        },
+        "alignItems": {
+          "type": "string",
+          "enum": ["start", "center", "end", "stretch"]
+        },
+        "justifyContent": {
+          "type": "string",
+          "enum": ["start", "center", "end", "space-between"]
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "itemSpacing": {
+          "$ref": "#/$defs/evenSpacing"
+        },
+        "padding": {
+          "$ref": "#/$defs/padding"
+        },
+        "width": {
+          "type": "string",
+          "enum": ["hug", "fill"]
+        }
+      }
+    },
+    "backgroundFill": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["solid"]
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": ["type", "color"]
+    },
+    "componentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["componentKey"],
+      "properties": {
+        "componentKey": {
+          "type": "string",
+          "minLength": 8
+        },
+        "variant": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "textNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "text"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "type": {
+          "const": "text"
+        },
+        "role": {
+          "$ref": "#/$defs/itemRole"
+        },
+        "text": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["content", "style"],
+          "properties": {
+            "content": {
+              "type": "string",
+              "minLength": 1
+            },
+            "style": {
+              "type": "string",
+              "enum": ["h1", "h2", "h3", "body", "small"]
+            },
+            "maxWidth": {
+              "type": "integer",
+              "minimum": 120,
+              "maximum": 1200
+            }
+          }
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        }
+      }
+    },
+    "buttonNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "button"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "type": {
+          "const": "button"
+        },
+        "role": {
+          "$ref": "#/$defs/itemRole"
+        },
+        "button": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["label", "variant"],
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "variant": {
+              "type": "string",
+              "enum": ["primary", "secondary", "tonal", "text"]
+            },
+            "width": {
+              "type": "string",
+              "enum": ["hug", "fill"]
+            }
+          }
+        },
+        "useComponent": {
+          "$ref": "#/$defs/componentRef"
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        }
+      }
+    },
+    "imageNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "image"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "type": {
+          "const": "image"
+        },
+        "role": {
+          "$ref": "#/$defs/itemRole"
+        },
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "aspectRatio"],
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": ["placeholder", "remote"]
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "alt": {
+              "type": "string"
+            },
+            "aspectRatio": {
+              "type": "number",
+              "exclusiveMinimum": 0.1,
+              "exclusiveMaximum": 4
+            },
+            "cornerRadius": {
+              "type": "integer",
+              "enum": [4, 8, 12, 16]
+            }
+          }
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        }
+      }
+    },
+    "listNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "items"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "type": {
+          "const": "list"
+        },
+        "role": {
+          "$ref": "#/$defs/itemRole"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subtitle": {
+                "type": "string"
+              },
+              "icon": {
+                "$ref": "#/$defs/componentRef"
+              }
+            }
+          }
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        }
+      }
+    },
+    "containerNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "layout", "children"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "type": {
+          "const": "container"
+        },
+        "role": {
+          "$ref": "#/$defs/itemRole"
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        },
+        "background": {
+          "$ref": "#/$defs/backgroundFill"
+        },
+        "children": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sectionNode"
+          }
+        }
+      }
+    },
+    "componentNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id", "useComponent"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nodeId"
+        },
+        "type": {
+          "const": "component"
+        },
+        "role": {
+          "$ref": "#/$defs/itemRole"
+        },
+        "useComponent": {
+          "$ref": "#/$defs/componentRef"
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        }
+      }
+    },
+    "sectionNode": {
+      "oneOf": [
+        { "$ref": "#/$defs/textNode" },
+        { "$ref": "#/$defs/buttonNode" },
+        { "$ref": "#/$defs/imageNode" },
+        { "$ref": "#/$defs/listNode" },
+        { "$ref": "#/$defs/containerNode" },
+        { "$ref": "#/$defs/componentNode" }
+      ]
+    },
+    "nodeId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]{4,}$"
+    },
+    "itemRole": {
+      "type": "string",
+      "enum": [
+        "heading",
+        "subheading",
+        "body",
+        "cta",
+        "feature",
+        "price",
+        "faq",
+        "media",
+        "support",
+        "list"
+      ]
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "padding", "itemSpacing", "layout", "items"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["hero", "features", "pricing", "faq", "custom"]
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark"]
+        },
+        "heading": {
+          "type": "string"
+        },
+        "subheading": {
+          "type": "string"
+        },
+        "padding": {
+          "$ref": "#/$defs/padding"
+        },
+        "itemSpacing": {
+          "$ref": "#/$defs/evenSpacing"
+        },
+        "layout": {
+          "$ref": "#/$defs/layout"
+        },
+        "background": {
+          "$ref": "#/$defs/backgroundFill"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sectionNode"
+          }
+        }
+      }
+    }
+  }
+}

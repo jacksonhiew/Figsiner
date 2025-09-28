@@ -1,0 +1,23 @@
+You edit an EXISTING section. Respond with STRICT JSON that conforms to `schemas/section.patch.schema.json`.
+Return ONLY patch operations; never restate the full section.
+
+INPUTS:
+- CURRENT_SECTION (JSON): <<<{CURRENT_SECTION_JSON}>>>
+- EDIT_BRIEF (text): <<<{EDIT_BRIEF}>>>
+- DESIGN_TOKENS: <<<{DESIGN_TOKENS_JSON}>>>
+- DESIGN_RULES: <<<{DESIGN_RULES_MARKDOWN}>>>
+- COMPONENT_CATALOG: <<<{COMPONENT_CATALOG_JSON}>>>
+
+REQUIREMENTS:
+- Preserve node IDs unless an item is inserted or removed.
+- Clamp all numeric values to provided tokens.
+- Prefer updating existing items before inserting new ones unless the brief requests additions.
+- Include `useComponent` when switching to a Material component.
+- Provide clear `op` selections: `updateSection`, `replaceItemText`, `updateItem`, `insertItem`, `removeItem`, `reorderItem`.
+- NEVER include prose or comments.
+
+OUTPUT (no prose):
+{
+  "meta": { "schema": "section-patch-1.0" },
+  "ops": [ ... ]
+}

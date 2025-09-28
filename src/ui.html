@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Figsiner Section Engine</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 14px;
+      }
+
+      body {
+        margin: 0;
+        padding: 16px;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+      }
+
+      h1 {
+        font-size: 16px;
+        margin: 0 0 12px;
+      }
+
+      fieldset {
+        border: 1px solid var(--figma-color-border);
+        border-radius: 8px;
+        margin: 0 0 12px;
+        padding: 12px;
+      }
+
+      fieldset legend {
+        padding: 0 4px;
+        font-weight: 600;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 8px;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid var(--figma-color-border);
+        padding: 6px 8px;
+        background: transparent;
+        color: inherit;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      button {
+        all: unset;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: var(--figma-color-bg-brand);
+        color: var(--figma-color-text-onbrand);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: transparent;
+        border: 1px solid var(--figma-color-border);
+        color: inherit;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .status {
+        margin-top: 8px;
+        font-size: 12px;
+        min-height: 18px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 8px;
+        text-align: center;
+        border-radius: 6px;
+        border: 1px solid var(--figma-color-border);
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .tab.active {
+        background: var(--figma-color-bg-brand);
+        color: var(--figma-color-text-onbrand);
+        border-color: transparent;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Figsiner Section Engine</h1>
+    <fieldset>
+      <legend>API Settings</legend>
+      <label>
+        Host
+        <input id="host" type="url" placeholder="https://api.example.com" />
+      </label>
+      <label>
+        API Key
+        <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" />
+      </label>
+      <label>
+        Model
+        <input id="model" type="text" placeholder="gpt-4" />
+      </label>
+      <div class="actions">
+        <button id="verify">Verify</button>
+        <button id="save" class="secondary">Save</button>
+      </div>
+      <div id="status" class="status"></div>
+    </fieldset>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="generate">Generate</div>
+      <div class="tab" data-tab="edit">Edit</div>
+    </div>
+
+    <section id="generate" class="panel">
+      <label>
+        Prompt
+        <textarea id="generatePrompt" placeholder="Describe the section you want..."></textarea>
+      </label>
+      <div class="actions">
+        <button id="generateBtn">Generate Section</button>
+      </div>
+    </section>
+
+    <section id="edit" class="panel hidden">
+      <label>
+        Edit brief
+        <textarea id="editBrief" placeholder="Describe the changes to make..."></textarea>
+      </label>
+      <div class="actions">
+        <button id="editBtn">Apply Patch</button>
+      </div>
+    </section>
+
+    <script type="module" src="/src/ui.ts"></script>
+  </body>
+</html>
