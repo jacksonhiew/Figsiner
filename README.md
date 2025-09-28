@@ -1,1 +1,3 @@
 # Figsiner
+
+Figsiner is a Figma plugin...
